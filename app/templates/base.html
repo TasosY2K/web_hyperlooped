@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; img-src 'self'; connect-src 'none';">
+  <link rel="shortcut icon" href="/static/icon.png" type="image/png">
+  <script src="{{ url_for('static', filename='tailwind.js') }}"></script>
+  <title>{% block title %}Hyperlooped{% endblock %}</title>
+  {% block head_extra %}{% endblock %}
+  <style>
+    @font-face {
+      font-family: "Orbitron",;
+      src: url(/static/orbitron.ttf);
+    }
+
+    :root {
+        --bg-dark: #0d0d0d;
+        --neon-primary: #ff007c;
+        --neon-secondary: #00eaff;
+    }
+
+    body {
+        background: var(--bg-dark);
+        color: #e5e7eb;
+        font-family: 'Orbitron', monospace;
+    }
+
+    a {
+        color: var(--neon-secondary);
+        transition: color 0.2s ease;
+    }
+
+    a:hover {
+        color: var(--neon-primary);
+    }
+
+    .neon {
+        text-shadow: 0 0 0px var(--neon-primary), 0 0 20px var(--neon-primary);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="border-b border-fuchsia-600/25">
+    <div class="container mx-auto flex items-center justify-between p-6">
+      <h1 class="text-4xl neon tracking-widest whitespace-nowrap"><a href="{{ url_for('home') }}">Hyperlooped</a></h1>
+
+      <nav class="space-x-6 text-lg">
+        <a href="{{ url_for('home') }}" class="hover:underline">Home</a>
+        <a href="{{ url_for('about') }}" class="hover:underline">About</a>
+        <a href="{{ url_for('upload_post') }}" class="hover:underline">Upload</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 container mx-auto p-6 max-w-5xl">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="mb-6">
+          {% for category, msg in messages %}
+            <li class="p-4 rounded mb-2 {{ 'bg-green-800/60' if category=='success' else 'bg-red-800/60' }}">{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="p-4 text-center text-sm text-gray-500 border-t border-fuchsia-600/25">
+    <p>&copy; Hyperlooped. All rights reserved.</p>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

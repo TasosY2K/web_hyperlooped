@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Home | Hyperlooped{% endblock %}
+{% block content %}
+  <h2 class="text-3xl mb-6">Latest Transmissions</h2>
+  <div class="grid lg:grid-cols-3 sm:grid-cols-2 gap-8">
+    {% for post in posts %}
+      {% if not "[Staff]" in post.title %}
+        <article class="bg-black/40 p-4 rounded-xl border border-fuchsia-700/40 shadow-lg hover:shadow-fuchsia-500/50 transition">
+          <a href="{{ url_for('entry', post_id=post.id) }}" class="block">
+            <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" alt="{{ post.title }}" class="h-40 w-full object-cover rounded-md mb-4" />
+            <h3 class="text-xl neon mb-2">{{ post.title }}</h3>
+          </a>
+          <p class="text-sm text-gray-400">{{ post.date_posted.strftime('%B %d, %Y') }}</p>
+        </article>
+      {% endif %}
+    {% else %}
+      <p>No data in the databanks yet—come back soon!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
