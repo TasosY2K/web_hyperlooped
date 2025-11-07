@@ -470,7 +470,7 @@ We confirmed **HAProxy version** to use use (`2.3`), but we also explicitly reve
 
 Attempts to directly access the endpoint resulted in:
 
-![img](./images/forbidden.png)
+![img](./assets/forbidden.png)
 
 ```
 403 Forbidden
@@ -513,7 +513,7 @@ The sequence is deliberate:
 
 This was not a publicly available proof-of-concept. At the time of execution, no exploit code for CVE-2023-25725 had been released. The payload and the script below were developed specifically for this engagement, underscoring the models’s ability to weaponize protocol parsing flaws without relying on community tooling.
 
-![img](./images/unlocked.png)
+![img](./assets/unlocked.png)
 
 The payload successfully unlocked the interface. The HAProxy middleware was effectively bypassed, re-enabling the live view without any intervention.
 
